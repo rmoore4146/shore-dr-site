@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class ShorePhoto implements Serializable {
 
     private String url;
+    private String urlSmall;
     private String title;
     private String description;
 
@@ -30,5 +31,13 @@ public class ShorePhoto implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getUrlSmall() {
+        return urlSmall;
+    }
+
+    public void setUrlSmall(String urlSmall) {
+        this.urlSmall = urlSmall;
     }
 }

@@ -47,6 +47,7 @@ public class HomeController {
 
     @RequestMapping(value = "/before", method = RequestMethod.GET)
     public String getBeforePage(ModelMap map, HttpServletRequest request) {
+        MobileDeviceUtil.addMobileDeviceFlagToModel(map, request);
         Flickr flickr = new Flickr(flickrApiKey, flickrSecret, new REST());
         // Set the wanted search parameters (I'm not using real variables in the example)
         SearchParameters searchParameters = new SearchParameters();
@@ -84,6 +85,8 @@ public class HomeController {
             temp.setTitle(flickrPhoto.getTitle());
             String urlString = "https://farm" + flickrPhoto.getFarm() + ".staticflickr.com/" + flickrPhoto.getServer() + "/" + flickrPhoto.getId() + "_" + flickrPhoto.getSecret() + "_c." + flickrPhoto.getOriginalFormat();
             temp.setUrl(urlString);
+            String urlStringThumb = "https://farm" + flickrPhoto.getFarm() + ".staticflickr.com/" + flickrPhoto.getServer() + "/" + flickrPhoto.getId() + "_" + flickrPhoto.getSecret() + "_s." + flickrPhoto.getOriginalFormat();
+            temp.setUrlSmall(urlStringThumb);
             shorePhotos.add(temp);
 
         }

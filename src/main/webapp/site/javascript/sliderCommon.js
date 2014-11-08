@@ -11,13 +11,25 @@ var sliderCommon = {
 
     initStyling: function() {
 
+        var mobileFlag = $('#mobileFlag').val();
+        var slidesToShow = 5;
+        if (mobileFlag) {
+            slidesToShow = 2;
+        }
         $('.slider').slick({
-            dots: true,
-            infinite: true,
-            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
             fade: true,
-//            slide: '> div',
-            cssEase: 'linear'
+            asNavFor: '.slider-nav'
+        });
+
+        $('.slider-nav').slick({
+            slidesToShow: slidesToShow,
+            slidesToScroll: 1,
+            asNavFor: '.slider',
+            centerMode: true,
+            focusOnSelect: true
         });
     }
 };
