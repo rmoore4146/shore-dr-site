@@ -92,43 +92,23 @@
             </plugin>
 
             <plugin>
-                <groupId>net.kindleit</groupId>
-                <artifactId>maven-gae-plugin</artifactId>
-                <version>0.9.3</version>
-                <configuration>
-                    <port>${gae.port}</port>
-                    <unpackVersion>${gae.version}</unpackVersion>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <goals>gae:deploy</goals>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.3</version>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
+                        <phase>package</phase>
+                        <goals><goal>copy</goal></goals>
                         <configuration>
-                            <tasks>
-                                <!--
-                                    This creates the META-INF folder inside of classes, then
-                                    copies over the jdoconfig.xml required for GAE
-                                -->
-                                <mkdir dir="${project.build.directory}/classes/META-INF"/>
-                                <copy file="${project.basedir}/src/main/webapp/WEB-INF/jdoconfig.xml"
-                                      todir="${project.build.directory}/classes/META-INF" />
-                                <echo message="Copy:${project.build.directory}/classes/jdoconfig.xml to " />
-                                <echo message="${project.build.directory}/classes/META-INF"/>
-                            </tasks>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.mortbay.jetty</groupId>
+                                    <artifactId>jetty-runner</artifactId>
+                                    <version>7.4.5.v20110725</version>
+                                    <destFileName>jetty-runner.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
                         </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -204,8 +184,6 @@
 
     <!-- keeping the versions of all external dependencies here -->
     <properties>
-        <gae.version>1.6.6</gae.version>
-        <gae-dependency-version>1.8.9</gae-dependency-version>
         <jdk-version>1.7</jdk-version>
         <cobertura-version>2.0</cobertura-version>
         <maven-surefire-plugin-version>2.4</maven-surefire-plugin-version>
@@ -213,13 +191,6 @@
         <spring-version>3.0.1.RELEASE</spring-version>
         <commons-collections-version>3.2.1</commons-collections-version>
         <sitemesh-version>2.4.2</sitemesh-version>
-        <netbeans.hint.deploy.server>AppEngine</netbeans.hint.deploy.server>
-        <gae.port>8085</gae.port>
-        <gae.home>
-            ${settings.localRepository}/com/google/appengine/appengine-java-sdk/${gae.version}/appengine-java-sdk-${gae.version}
-        </gae.home>
-        <!-- Upload to http://0.latest.<applicationName>.appspot.com by default -->
         <gae.application.version>0.0.1</gae.application.version>
-        <contextPath>m</contextPath>
     </properties>
 </project>
